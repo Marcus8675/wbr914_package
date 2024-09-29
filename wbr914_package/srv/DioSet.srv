@@ -1,0 +1,7 @@
+# M3 I/O board has 8 digital outputs.  6 low power outputs and 2 high power outputs
+# Each I/O board is represented with a byte of digital output data.
+# Optional Aux M3 is represetned in the upper byte.
+
+uint16 digitalout  ## 16 bits to be output.  lower byte is Main M3.  Upper byte is optional AUX M3.
+---
+bool success
