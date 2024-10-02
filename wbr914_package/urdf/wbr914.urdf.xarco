@@ -1,0 +1,161 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="wbr914">
+
+    <xacro:include filename="ros2_control.xacro" />
+    <parameters>$(find wbr914_package)/config/my_controllers.yaml</parameters>
+
+    <gazebo reference="base_link">
+        <material>Gazebo/Green</material>
+    </gazebo>
+ 
+    <material name="blue">
+        <color rgba="0.15 0.34 0.7 1" />
+    </material>
+    
+    <material name="dk_gray">
+    	<color rgba="0.2 0.2 0.2 1" />
+    </material>
+
+    <material name="white">
+        <color rgba="1 1 1 1" />
+    </material>
+
+    <material name="tan">
+        <color rgba=".82 .71 0.55 1" />
+    </material>
+    
+    <link name="base_footprint" />
+    
+    <link name="base_link">
+        <visual>
+            <geometry>
+            	<cylinder radius="0.35" length="0.5" />
+            </geometry>
+            <origin xyz="0 0 0.25" rpy="0 0 0" />
+            <material name="white" />
+        </visual>
+        <collision>
+            <geometry>
+            	<cylinder radius="0.35" length="0.5" />
+            </geometry>
+            <origin xyz="0 0 0.25" rpy="0 0 0" />    
+        </collision>
+        <inertial>
+            <mass value="25"/>
+            <inertia ixx="1.2865" ixy="0.0" ixz="0.0" iyy="1.2865" iyz="0.0" izz="1.5313"/>
+        </inertial>
+    </link>
+    
+    <link name="rwheel_link">
+    	<visual>
+	    <geometry>
+		<cylinder radius="0.0625" length=".025" />
+	    </geometry>
+	    <origin xyz="0 0 0 " rpy="1.57 0 0" />
+	    <material name="dk_gray" />
+    	</visual>
+    	<collision>
+	    <geometry>
+		<cylinder radius="0.0625" length=".025" />
+	    </geometry>
+	    <origin xyz="0 0 0 " rpy="1.57 0 0" /> 
+        </collision>
+        <inertial>
+            <mass value="0.5"/>
+            <inertia ixx="0.0005143" ixy="0.0" ixz="0.0" iyy="0.0005143" iyz="0.0" izz="0.0009766"/>
+        </inertial>
+    </link>
+    
+    <link name="lwheel_link">
+    	<visual>
+	    <geometry>
+		<cylinder radius="0.0625" length=".025" />
+	    </geometry>
+	    <origin xyz="0 0 0 " rpy="1.57 0 0" />
+	    <material name="dk_gray" />
+    	</visual>
+    	<collision>
+	    <geometry>
+		<cylinder radius="0.0625" length=".025" />
+	    </geometry>
+	    <origin xyz="0 0 0 " rpy="1.57 0 0" />
+    	</collision>    	
+        <inertial>
+            <mass value="0.5"/>
+            <inertia ixx="0.0005143" ixy="0.0" ixz="0.0" iyy="0.0005143" iyz="0.0" izz="0.0009766"/>
+        </inertial>
+    </link>
+    
+    <link name="fcaster_link">
+    	<visual>
+	    <geometry>
+		<sphere radius="0.03125" />
+	    </geometry>
+	    <origin xyz="0 0 0 " rpy="0 0 0" />
+	    <material name="dk_gray" />
+    	</visual>
+    	<collision>
+	    <geometry>
+		<sphere radius="0.03125" />
+	    </geometry>
+	    <origin xyz="0 0 0 " rpy="0 0 0" />
+    	</collision>
+        <inertial>
+            <mass value="0.25"/>
+            <inertia ixx="0.00001512" ixy="0.0" ixz="0.0" iyy="0.00001512" iyz="0.0" izz="0.00001512"/>
+        </inertial>
+    </link>
+    
+    <link name="bcaster_link">
+    	<visual>
+	    <geometry>
+		<sphere radius="0.03125" />
+	    </geometry>
+	    <origin xyz="0 0 0 " rpy="0 0 0" />
+	    <material name="dk_gray" />
+    	</visual>
+    	<collision>
+	    <geometry>
+		<sphere radius="0.03125" />
+	    </geometry>
+	    <origin xyz="0 0 0 " rpy="0 0 0" />
+    	</collision>
+        <inertial>
+            <mass value="0.25"/>
+            <inertia ixx="0.00001512" ixy="0.0" ixz="0.0" iyy="0.00001512" iyz="0.0" izz="0.00001512"/>
+        </inertial>
+    </link>
+    
+    
+    <joint name="base_joint" type="fixed">
+    	<parent link="base_footprint" />
+    	<child link="base_link" />
+    	<origin xyz="0 0 0.03125" rpy="0 0 0" />
+    </joint>
+
+    <joint name="base_rwheel_joint" type="continuous">
+        <parent link="base_link" />
+        <child link="rwheel_link" />
+        <origin xyz="0 -0.35 0" rpy="0 0 0" />
+        <axis xyz="0 1 0" />
+    </joint>
+    
+    <joint name="base_lwheel_joint" type="continuous">
+        <parent link="base_link" />
+        <child link="lwheel_link" />
+        <origin xyz="0 0.35 0" rpy="0 0 0" />
+        <axis xyz="0 1 0" />
+    </joint>
+    
+    <joint name="base_fcaster_joint" type="fixed">
+        <parent link="base_link" />
+        <child link="fcaster_link" />
+        <origin xyz="0.31875 0 -0.03125" rpy="0 0 0" />
+    </joint>
+
+    <joint name="base_bcaster_joint" type="fixed">
+        <parent link="base_link" />
+        <child link="bcaster_link" />
+        <origin xyz="-0.31875 0 -0.03125" rpy="0 0 0" />
+    </joint>
+</robot>

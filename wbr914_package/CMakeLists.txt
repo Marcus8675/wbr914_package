@@ -28,23 +28,30 @@ rosidl_generate_interfaces(${PROJECT_NAME}
 )
 
 include_directories(
-include/wbr914_package
-include/wbr914_base_driver
+  include/wbr914_package
+  include/wbr914_base_driver
 )
 
 # Nodes executables
-add_executable(wbr914_node
-src/wbr914_node.cpp
-src/eye_interface.cpp
-include/wbr914_base_driver/wbr914_m3_io.cpp)
+add_executable(
+  wbr914_node
+  src/wbr914_node.cpp
+  src/eye_interface.cpp
+  include/wbr914_base_driver/wbr914_m3_io.cpp
+)
 
 # Add needed ROS packages to the executables
 ament_target_dependencies(wbr914_node rclcpp geometry_msgs wbr914_sensehatb_interfaces)
 rosidl_target_interfaces(wbr914_node ${PROJECT_NAME} "rosidl_typesupport_cpp")
 
-install(TARGETS
- wbr914_node
-  DESTINATION lib/${PROJECT_NAME})
-
+install(
+  TARGETS wbr914_node
+  DESTINATION lib/${PROJECT_NAME}
+)
+  
+install(
+  DIRECTORY config urdf
+  DESTINATION share/${PROJECT_NAME}
+)
 
 ament_package()
